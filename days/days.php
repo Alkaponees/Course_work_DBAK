@@ -53,7 +53,6 @@
             <th>Час_прибуття</th> 
             <th>Тривалість_маршруту</th>
             <th>Перелік_зупинок</th>
-            <th>Ціна</th>
             </thead>
             <tbody>
                 <tr>
@@ -65,7 +64,6 @@
                 <td>$row[Час_прибуття]</td>
                 <td>$row[Тривалість_маршруту]</td>
                 <td>$row[Перелік_зупинок]</td>
-                <td>$row[Ціна]</td>
                     <td class='active-row'>
                         <a  href='edit_days_page.php? id=" .$row['id']."'>Редагувати</a>
                         <a  href='delete_days.php? id=".$row['id']."'>Видалити</a>

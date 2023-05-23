@@ -98,8 +98,6 @@
      <input type='text' id='Тривалість_маршруту' name='Тривалість_маршруту'><br><br>
      <label for='lname'>Перелік зупинок:</label><br>
      <input type='text' id='Перелік_зупинок' name='Перелік_зупинок'><br><br>
-     <label for='lname'>Ціна:</label><br>
-     <input type='text' id='Ціна' name='Ціна'><br><br>
      <input type='submit' value='Додати'>
    </form> " ;
         mysqli_close($connection);

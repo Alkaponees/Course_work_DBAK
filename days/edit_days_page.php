@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-<title>Маршрути</title>
+<title>Дні відправлення</title>
 </head>
 <body>
     <header class="header">
@@ -101,7 +101,6 @@
            <th>Час_прибуття</th> 
            <th>Тривалість_маршруту</th>
            <th>Перелік_зупинок</th>
-           <th>Ціна</th>
            </thead>
            <tbody>
                <tr>
@@ -113,7 +112,6 @@
                <td>$row[Час_прибуття]</td>
                <td>$row[Тривалість_маршруту]</td>
                <td>$row[Перелік_зупинок]</td>
-               <td>$row[Ціна]</td>
                    </tr>
            </tbody>
        </table>
@@ -135,8 +133,6 @@
     <input type='text' id='Тривалість_маршруту' name='Тривалість_маршруту'><br><br>
     <label for='lname'>Перелік зупинок:</label><br>
     <input type='text' id='Перелік_зупинок' name='Перелік_зупинок'><br><br>
-    <label for='lname'>Ціна:</label><br>
-    <input type='text' id='Ціна' name='Ціна'><br><br>
     <input type='submit' value='Редагувати'>
   </form> " ;
         mysqli_close($connection);
