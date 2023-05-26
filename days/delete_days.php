@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-<title>Потяги</title>
+<title>Дні відправлення</title>
 </head>
 <body>
     <header class="header">
-        <h1> Видалити потяг</h1>
+        <h1> Видалити день відправлення</h1>
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
             <div class="item"><a href="days.php">Дні відправлення</a></div>

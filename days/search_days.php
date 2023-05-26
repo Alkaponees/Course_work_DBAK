@@ -13,38 +13,55 @@
 </head>
 <body>
     <header class="header">
-        <h1> Відображення днів відправлення(ДВ)</h1>
+        <h1> Пошук дня відправлення</h1>
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
-            <div class="item"><a href="add_days_page.php">Додати ДВ</a></div>
-            <div class="item"><a href="search_days.php">Шукати ДВ</a></div>
+            <div class="item"><a href="days.php">День відправлення</a></div>
             <div class="animation start-home"></div>
             </nav>
 	</header>
     <main>
-    <br><br>
-    <?php 
-        $servername = 'localhost';
-        $username   = 'root';
-        $password   = 'ALk4p@nees0_7';
-        $database   = 'railway_station';
+    <h1>Пошук дня відправлення</h1>
+    <form method="POST" action="">
+        <label for="condition">День відправлення:</label><br><br>
+        <input type="text" name="день_відправлення" id="день_відправлення" required><br><br>
+        <button type="submit">Пошук</button>
+    </form>
 
-        //  Створюємо з'єднання
+    <?php
+    // Database connection details
+    $servername = 'localhost';
+    $username   = 'root';
+    $password   = 'ALk4p@nees0_7';
+    $database   = 'railway_station';
+
+    //  Створюємо з'єднання
+    
+
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $день_відправлення = $_POST["день_відправлення"]; // Get the condition value from the form
+        
+        // Create a connection
         $connection = new mysqli($servername, $username, $password, $database);
 
         // Перевіряємо з'єднання
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
-        $sql = "SELECT * FROM Дні_відправлення";
+
+        // Query the database with the specific condition
+        $sql = "SELECT * FROM Дні_відправлення WHERE День_відправлення= '$день_відправлення' "; // Replace 'your_table' with your table name and 'column_name' with the column to match against
+
         $result = $connection->query($sql);
-     if (!$result) {
-        die("Не вдалося отримати дані з таблиці Дні відправлення" . $connection->error);
-     }   
-    
-    while ($row = $result ->fetch_assoc()){
-        echo "
-        <table class='styled-table'>
+        if (!$result) {
+            die("Не вдалося знайти дані в таблиці Дні відправлення" . $connection->error);
+         }
+        else{
+            // Check if any rows were returned
+        while ($row = $result ->fetch_assoc()){
+            echo "
+            <table class='styled-table'>
             <thead>
             <th>ID</th>
             <th>Номер_потягу</th>
@@ -65,17 +82,16 @@
                 <td>$row[Час_прибуття]</td>
                 <td>$row[Тривалість_маршруту]</td>
                 <td>$row[Перелік_зупинок]</td>
-                    <td class='active-row'>
-                        <a  href='edit_days_page.php? id=" .$row['id']."'>Редагувати</a>
-                        <a  href='delete_days.php? id=".$row['id']."'>Видалити</a>
-                    </td>
                     </tr>
             </tbody>
-        </table>
-        ";
+            </table>
+            ";
+        }
+        }
+         
+            mysqli_close($connection);
     }
-    
     ?>
-
-</main>
+    </main>
 </body>
+</html>

@@ -17,6 +17,7 @@
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
             <div class="item"><a href="add_ways_page.php">Додати машрут</a></div>
+            <div class="item"><a href="search_ways.php">Шукати машрут</a></div>
             <div class="animation start-home"></div>
             </nav>
 	</header>

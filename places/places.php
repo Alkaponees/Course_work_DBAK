@@ -17,6 +17,7 @@
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
             <div class="item"><a href="add_places_page.php">Додати місце</a></div>
+            <div class="item"><a href="search_places.php">Шукати місце</a></div>
             <div class="animation start-home"></div>
             </nav>
 	</header>

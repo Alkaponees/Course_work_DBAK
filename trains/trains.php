@@ -17,6 +17,7 @@
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
             <div class="item"><a href="add_trains_page.php">Додати потяг</a></div>
+            <div class="item"><a href="search_trains.php">Шукати потяг</a></div>
             <div class="animation start-home"></div>
             </nav>
 	</header>

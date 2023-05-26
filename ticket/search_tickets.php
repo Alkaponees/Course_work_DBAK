@@ -13,48 +13,55 @@
 </head>
 <body>
     <header class="header">
-        <h1> Відображення квитків</h1>
+        <h1> Пошук квитка</h1>
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
-            <div class="item"><a href="add_tickets_page.php">Додати квиток</a></div>
-            <div class="item"><a href="search_tickets.php">Шукати квиток</a></div>
+            <div class="item"><a href="tickets.php">Квитки</a></div>
             <div class="animation start-home"></div>
             </nav>
 	</header>
     <main>
-    <br><br>
-    <?php 
-        $servername = 'localhost';
-        $username   = 'root';
-        $password   = 'ALk4p@nees0_7';
-        $database   = 'railway_station';
+    <h1>Пошук квитка</h1>
+    <form method="POST" action="">
+        <label for="condition">Номер_квитка:</label><br><br>
+        <input type="text" name="номер_квитка" id="номер_квитка" required><br><br>
+        <button type="submit">Пошук</button><br><br>
+    </form>
 
-        //  Створюємо з'єднання
+    <?php
+    // Database connection details
+    $servername = 'localhost';
+    $username   = 'root';
+    $password   = 'ALk4p@nees0_7';
+    $database   = 'railway_station';
+
+    //  Створюємо з'єднання
+    
+
+    // Check if the form is submitted
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $номер_квитка = $_POST["номер_квитка"]; // Get the condition value from the form
+       
+        // Create a connection
         $connection = new mysqli($servername, $username, $password, $database);
 
         // Перевіряємо з'єднання
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
-        $sql = "SELECT * FROM Квитки";
+
+        // Query the database with the specific condition
+        $sql = "SELECT * FROM Квитки WHERE Номер_квитка = '$номер_квитка'"; // Replace 'your_table' with your table name and 'column_name' with the column to match against
+
         $result = $connection->query($sql);
-     if (!$result) {
-        die("Не вдалося отримати дані з таблиці Маршрути" . $connection->error);
-     }   
-    //  CREATE TABLE Квитки (
-    //     Номер_квитка MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    //     Номер_маршруту MEDIUMINT UNSIGNED,
-    //     День_відправлення DATE, 	          	
-    //     Номер_місця MEDIUMINT UNSIGNED, 
-    //     Номер_потягу MEDIUMINT UNSIGNED,
-    //     Номер_вагону MEDIUMINT UNSIGNED,
-    //     Прізвище_пасажира VARCHAR(50),
-    //         Імя_пасажира VARCHAR(50),
-    //     Наявність_пільги ENUM(‘Так’, ‘Ні’),
-    //     Ціна FLOAT,
-    while ($row = $result ->fetch_assoc()){
-        echo "
-        <table class='styled-table'>
+        if (!$result) {
+            die("Не вдалося знайти дані в таблиці Квитка" . $connection->error);
+         }
+        else{
+            // Check if any rows were returned
+        while ($row = $result ->fetch_assoc()){
+            echo "
+            <table class='styled-table'>
             <thead>
                 <th>Номер квитка</th>
                 <th>Номер маршруту</th>
@@ -79,17 +86,16 @@
                     <td>$row[Імя_пасажира]</td>
                     <td>$row[Наявність_пільги]</td>
                     <td>$row[Ціна]</td>
-                    <td class='active-row'>
-                        <a  href='edit_tickets_page.php? Номер_квитка=" .$row['Номер_квитка']."'>Редагувати</a>
-                        <a  href='delete_tickets.php? Номер_квитка=".$row['Номер_квитка']."'>Видалити</a>
-                    </td>
                     </tr>
             </tbody>
         </table>
-        ";
+            ";
+        }
+        }
+         
+            mysqli_close($connection);
     }
-    
     ?>
-
-</main>
+    </main>
 </body>
+</html>

@@ -17,6 +17,7 @@
         <nav>
             <div class="item"><a href="../index.html">Головна</a></div>
             <div class="item"><a href="add_carriages_page.php">Додати вагон</a></div>
+            <div class="item"><a href="search_carriages.php">Шукати вагон</a></div>
             <div class="animation start-home"></div>
             </nav>
 	</header>
