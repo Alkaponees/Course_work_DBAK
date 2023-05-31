@@ -36,7 +36,8 @@
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
-        $sql = "SELECT * FROM Вагони";
+        $sql = "SELECT DISTINCT Вагони.id, Вагони.Номер_вагону, Потяги.Номер_потягу, Вагони.Тип_вагону, Вагони.Кількість_місць FROM Вагони
+        JOIN Потяги ON Вагони.Номер_потягу = Потяги.Номер_потягу ORDER BY Вагони.id;";
         $result = $connection->query($sql);
      if (!$result) {
         die("Не вдалося отримати дані з таблиці Вагонів" . $connection->error);

@@ -51,7 +51,16 @@
         }
 
         // Query the database with the specific condition
-        $sql = "SELECT * FROM Квитки WHERE Номер_квитка = '$номер_квитка'"; // Replace 'your_table' with your table name and 'column_name' with the column to match against
+        $sql = "SELECT DISTINCT Квитки.Номер_квитка, Маршрути.Номер_маршруту, 
+        Дні_відправлення.День_відправлення, Потяги.Номер_потягу, Вагони.Номер_вагону, 
+        Місця.Номер_місця, Пасажири.Імя_пасажира, Пасажири.Прізвище_пасажира, 
+        Пасажири.Наявність_пільги, Квитки.Ціна FROM Квитки 
+        JOIN Маршрути ON Квитки.Номер_маршруту = Маршрути.Номер_маршруту 
+        JOIN Дні_відправлення ON Квитки.Номер_дня_відправлення = Дні_відправлення.id 
+        JOIN Потяги ON Квитки.Номер_потягу = Потяги.Номер_потягу 
+        JOIN Вагони ON Квитки.Номер_вагону = Вагони.id
+        JOIN Місця ON Квитки.Номер_місця = Місця.id 
+        JOIN Пасажири ON Квитки.Номер_пасажира = Пасажири.id WHERE Номер_квитка = '$номер_квитка';"; // Replace 'your_table' with your table name and 'column_name' with the column to match against
 
         $result = $connection->query($sql);
         if (!$result) {

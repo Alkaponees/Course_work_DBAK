@@ -50,7 +50,7 @@
  <label for='lname'>Номер місця:</label><br>
  <input type='text' id='Номер_місця' name='Номер_місця'><br>
  <label for='lname'>Статус_місця (Приклад: Заброньовано, Вільне): </label><br>
- <input type='text' id='Статус_місця' name='Статус_місця'><br><br>
+ <input type='text' id='Статус_Місця' name='Статус_Місця'><br><br>
  <input type='submit' value='Додати'>
 </form> " ;
     echo "

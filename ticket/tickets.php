@@ -36,11 +36,30 @@
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
-        $sql = "SELECT * FROM Квитки";
+        $sql = "SELECT DISTINCT Квитки.Номер_квитка, Маршрути.Номер_маршруту, 
+        Дні_відправлення.День_відправлення, Потяги.Номер_потягу, Вагони.Номер_вагону, 
+        Місця.Номер_місця, Пасажири.Імя_пасажира, Пасажири.Прізвище_пасажира, 
+        Пасажири.Наявність_пільги, Квитки.Ціна FROM Квитки 
+        JOIN Маршрути ON Квитки.Номер_маршруту = Маршрути.Номер_маршруту 
+        JOIN Дні_відправлення ON Квитки.Номер_дня_відправлення = Дні_відправлення.id 
+        JOIN Потяги ON Квитки.Номер_потягу = Потяги.Номер_потягу 
+        JOIN Вагони ON Квитки.Номер_вагону = Вагони.id
+        JOIN Місця ON Квитки.Номер_місця = Місця.id 
+        JOIN Пасажири ON Квитки.Номер_пасажира = Пасажири.id ;";
+        // $sql1 = "SELECT День_відправлення FROM Дні_відправлення";
+        // $sql2 = "SELECT Прізвище_пасажира, Імя_пасажира, Наявність_пільги FROM Пасажири";
         $result = $connection->query($sql);
      if (!$result) {
-        die("Не вдалося отримати дані з таблиці Маршрути" . $connection->error);
+        die("Не вдалося отримати дані з таблиці Квитки" . $connection->error);
      }   
+    //  $result1 = $connection->query($sql1);
+    //  if (!$result1) {
+    //     die("Не вдалося отримати дані з таблиці Дні_відправлення" . $connection->error);
+    //  }
+    //  $result2 = $connection->query($sql2);
+    //  if (!$result2) {
+    //     die("Не вдалося отримати дані з таблиці Пасажири" . $connection->error);
+    //  }   
     //  CREATE TABLE Квитки (
     //     Номер_квитка MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
     //     Номер_маршруту MEDIUMINT UNSIGNED,
@@ -52,7 +71,8 @@
     //         Імя_пасажира VARCHAR(50),
     //     Наявність_пільги ENUM(‘Так’, ‘Ні’),
     //     Ціна FLOAT,
-    while ($row = $result ->fetch_assoc()){
+    while (($row = $result ->fetch_assoc())){
+        //&&($row1 = $result1 ->fetch_assoc())&&($row2 = $result2 ->fetch_assoc())){
         echo "
         <table class='styled-table'>
             <thead>

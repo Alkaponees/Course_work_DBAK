@@ -53,20 +53,16 @@
      <form action=\"add_tickets_process.php\" method='post'>
      <label for=\"fname\">Номер маршруту:</label><br>
      <input type=\"text\" id=\"номер_маршруту\" name=\"номер_маршруту\"><br>
-     <label for=\"fname\">День відправлення:</label><br>
-     <input type=\"text\" id=\"день_відправлення\" name=\"день_відправлення\"><br>
+     <label for=\"fname\">Номер_дня_відправлення:</label><br>
+     <input type=\"text\" id=\"номер_дня_відправлення\" name=\"номер_дня_відправлення\"><br>
      <label for=\"fname\">Номер місця:</label><br>
      <input type=\"text\" id=\"номер_місця\" name=\"номер_місця\"><br>
      <label for=\"fname\">Номер потягу:</label><br>
      <input type=\"text\" id=\"номер_потягу\" name=\"номер_потягу\"><br>
      <label for=\"fname\">Номер вагону:</label><br>
      <input type=\"text\" id=\"номер_вагону\" name=\"номер_вагону\"><br>
-     <label for=\"fname\">Прізвище пасажира:</label><br>
-     <input type=\"text\" id=\"прізвище_пасажира\" name=\"прізвище_пасажира\"><br>
-     <label for=\"fname\">Ім'я пасажира:</label><br>
-     <input type=\"text\" id=\"імя_пасажира\" name=\"імя_пасажира\"><br>
-     <label for=\"fname\">Наявність пільги:</label><br>
-     <input type=\"text\" id=\"наявність_пільги\" name=\"наявність_пільги\"><br>
+     <label for=\"fname\">Номер пасажира:</label><br>
+     <input type=\"text\" id=\"номер_пасажира\" name=\"номер_пасажира\"><br>
      <label for=\"fname\">Ціна:</label><br>
      <input type=\"text\" id=\"ціна\" name=\"ціна\"><br>
      <input type=\"submit\" value=\"Додати\">

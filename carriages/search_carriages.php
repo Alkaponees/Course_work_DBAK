@@ -23,8 +23,6 @@
     <main>
     <h1> Пошук вагону</h1>
     <form method="POST" action="">
-        <label for="condition">Номер вагону:</label><br><br>
-        <input type="text" name="номер_вагону" id="номер_вагону" required><br><br>
         <label for="condition">Номер потягу:</label><br><br>
         <input type="text" name="номер_потягу" id="номер_потягу" required><br><br>
         <button type="submit">Пошук</button>
@@ -42,7 +40,6 @@
 
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $номер_вагону = $_POST["номер_вагону"]; // Get the condition value from the form
         $номер_потягу = $_POST["номер_потягу"];
         // Create a connection
         $connection = new mysqli($servername, $username, $password, $database);
@@ -53,7 +50,8 @@
         }
 
         // Query the database with the specific condition
-        $sql = "SELECT * FROM Вагони WHERE Номер_вагону= '$номер_вагону' AND Номер_потягу='$номер_потягу' "; // Replace 'your_table' with your table name and 'column_name' with the column to match against
+        $sql = "SELECT DISTINCT Вагони.id, Вагони.Номер_вагону, Потяги.Номер_потягу, Вагони.Тип_вагону, Вагони.Кількість_місць FROM Вагони
+        JOIN Потяги ON Вагони.Номер_потягу = Потяги.Номер_потягу  WHERE Вагони.Номер_потягу=$номер_потягу "; // Replace 'your_table' with your table name and 'column_name' with the column to match against
 
         $result = $connection->query($sql);
         if (!$result) {
