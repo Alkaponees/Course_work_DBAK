@@ -22,6 +22,14 @@
             </nav>
 	</header>
     <main>
+    <form>
+   <select name="sortBy">
+    <option value="Номер_потягу">Номер_потягу</option>
+    <option value="Кількість_вагонів">Кількість_вагонів</option>
+    <option value="Тип_потягу">Тип_потягу</option>
+   </select>
+   <button type="submit" formaction="?" formmethod="post">Сортувати</button>
+  </form>
     <br><br>
     <?php 
         $servername = 'localhost';
@@ -31,12 +39,16 @@
 
         //  Створюємо з'єднання
         $connection = new mysqli($servername, $username, $password, $database);
-
+        $sortBy = (isset($_POST['sortBy']) ? $_POST['sortBy'] : NULL);
+        
         // Перевіряємо з'єднання
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
         $sql = "SELECT * FROM Потяги";
+        if($sortBy != NULL) {
+            $sql .= ' ORDER BY ' . $sortBy;
+           }
         $result = $connection->query($sql);
      if (!$result) {
         die("Не вдалося отримати дані з таблиці Маршрути" . $connection->error);

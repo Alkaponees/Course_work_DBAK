@@ -22,6 +22,14 @@
             </nav>
 	</header>
     <main>
+<form>
+   <select name="sortBy">
+    <option value="Номер_маршруту">Номер_маршруту</option>
+    <option value="Пункт_відправлення">Пункт_відправлення</option>
+    <option value="Пункт_призначення">Пункт_призначення</option>
+   </select>
+   <button type="submit" formaction="?" formmethod="post">Сортувати</button>
+  </form>
     <br><br>
     <?php 
         $servername = 'localhost';
@@ -36,12 +44,15 @@
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
+        $sortBy = (isset($_POST['sortBy']) ? $_POST['sortBy'] : NULL);
         $sql = "SELECT * FROM Маршрути";
+        if($sortBy != NULL) {
+            $sql .= ' ORDER BY ' . $sortBy;
+           }
         $result = $connection->query($sql);
      if (!$result) {
         die("Не вдалося отримати дані з таблиці Маршрути" . $connection->error);
      }   
-    
     while ($row = $result ->fetch_assoc()){
         echo "
         <table class='styled-table'>
@@ -64,7 +75,6 @@
         </table>
         ";
     }
-    
     ?>
 
 </main>

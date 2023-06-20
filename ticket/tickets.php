@@ -22,6 +22,19 @@
             </nav>
 	</header>
     <main>
+    <form>
+   <select name="sortBy">
+    <option value="Квитки.Номер_квитка">Номер_квитка</option>
+    <option value="Квитки.Номер_маршруту">Номер_маршруту</option>
+    <option value="Квитки.Номер_дня_відправлення">Номер_дня_відправлення</option>
+    <option value="Квитки.Номер_потягу">Номер_потягу</option>
+    <option value="Квитки.Номер_вагону">Номер_вагону</option>
+    <option value="Квитки.Номер_місця">Номер_місця</option>
+    <option value="Квитки.Номер_пасажира">Номер_пасажира</option>
+    <option value="Квитки.Ціна">Ціна</option>
+   </select>
+   <button type="submit" formaction="?" formmethod="post">Сортувати</button>
+  </form>
     <br><br>
     <?php 
         $servername = 'localhost';
@@ -31,11 +44,12 @@
 
         //  Створюємо з'єднання
         $connection = new mysqli($servername, $username, $password, $database);
-
+        $sortBy = (isset($_POST['sortBy']) ? $_POST['sortBy'] : NULL);
         // Перевіряємо з'єднання
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
         }
+        
         $sql = "SELECT DISTINCT Квитки.Номер_квитка, Маршрути.Номер_маршруту, 
         Дні_відправлення.День_відправлення, Потяги.Номер_потягу, Вагони.Номер_вагону, 
         Місця.Номер_місця, Пасажири.Імя_пасажира, Пасажири.Прізвище_пасажира, 
@@ -45,34 +59,17 @@
         JOIN Потяги ON Квитки.Номер_потягу = Потяги.Номер_потягу 
         JOIN Вагони ON Квитки.Номер_вагону = Вагони.id
         JOIN Місця ON Квитки.Номер_місця = Місця.id 
-        JOIN Пасажири ON Квитки.Номер_пасажира = Пасажири.id ;";
-        // $sql1 = "SELECT День_відправлення FROM Дні_відправлення";
-        // $sql2 = "SELECT Прізвище_пасажира, Імя_пасажира, Наявність_пільги FROM Пасажири";
+        JOIN Пасажири ON Квитки.Номер_пасажира = Пасажири.id";
+        if($sortBy != NULL) {
+            $sql .= ' ORDER BY ' . $sortBy;
+           }
         $result = $connection->query($sql);
      if (!$result) {
         die("Не вдалося отримати дані з таблиці Квитки" . $connection->error);
      }   
-    //  $result1 = $connection->query($sql1);
-    //  if (!$result1) {
-    //     die("Не вдалося отримати дані з таблиці Дні_відправлення" . $connection->error);
-    //  }
-    //  $result2 = $connection->query($sql2);
-    //  if (!$result2) {
-    //     die("Не вдалося отримати дані з таблиці Пасажири" . $connection->error);
-    //  }   
-    //  CREATE TABLE Квитки (
-    //     Номер_квитка MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    //     Номер_маршруту MEDIUMINT UNSIGNED,
-    //     День_відправлення DATE, 	          	
-    //     Номер_місця MEDIUMINT UNSIGNED, 
-    //     Номер_потягу MEDIUMINT UNSIGNED,
-    //     Номер_вагону MEDIUMINT UNSIGNED,
-    //     Прізвище_пасажира VARCHAR(50),
-    //         Імя_пасажира VARCHAR(50),
-    //     Наявність_пільги ENUM(‘Так’, ‘Ні’),
-    //     Ціна FLOAT,
+   
+     
     while (($row = $result ->fetch_assoc())){
-        //&&($row1 = $result1 ->fetch_assoc())&&($row2 = $result2 ->fetch_assoc())){
         echo "
         <table class='styled-table'>
             <thead>

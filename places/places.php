@@ -22,6 +22,16 @@
             </nav>
 	</header>
     <main>
+    <form>
+   <select name="sortBy">
+    <option value="Місця.id">ID</option>
+    <option value="Місця.Номер_вагону">Номер_вагону</option>
+    <option value="Місця.Номер_потягу">Номер_потягу</option>
+    <option value="Місця.Номер_місця">Номер_місця</option>
+    <option value="Місця.Статус_Місця">Статус_Місця</option>
+   </select>
+   <button type="submit" formaction="?" formmethod="post">Сортувати</button>
+  </form>
     <br><br>
     <?php 
         $servername = 'localhost';
@@ -31,7 +41,7 @@
 
         //  Створюємо з'єднання
         $connection = new mysqli($servername, $username, $password, $database);
-
+        $sortBy = (isset($_POST['sortBy']) ? $_POST['sortBy'] : NULL);
         // Перевіряємо з'єднання
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
@@ -39,7 +49,10 @@
         $sql = "SELECT DISTINCT Місця.id, Вагони.Номер_вагону, Потяги.Номер_потягу ,Місця.Номер_місця ,Статус_Місця FROM Місця
         JOIN Потяги ON Місця.Номер_потягу = Потяги.Номер_потягу 
         JOIN Вагони ON Місця.Номер_вагону = Вагони.id
-        ORDER BY Місця.id;";
+        ";
+        if($sortBy != NULL) {
+            $sql .= ' ORDER BY ' . $sortBy;
+           }
         $result = $connection->query($sql);
      if (!$result) {
         die("Не вдалося отримати дані з таблиці Місця" . $connection->error);

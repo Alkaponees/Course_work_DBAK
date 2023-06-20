@@ -22,6 +22,19 @@
             </nav>
 	</header>
     <main>
+    <form>
+   <select name="sortBy">
+    <option value="Дні_відправлення.Id">ID</option>
+    <option value="Дні_відправлення.Номер_потягу">Номер_потягу</option>
+    <option value="Дні_відправлення.Номер_маршруту">Номер_маршруту</option>
+    <option value="Дні_відправлення.День_відправлення">День_відправлення</option>
+    <option value="Дні_відправлення.Час_відправлення">Час_відправлення</option>
+    <option value="Дні_відправлення.Час_прибуття">Час_прибуття</option>
+    <option value="Дні_відправлення.Тривалість_маршруту">Тривалість_маршруту</option>
+    <option value="Дні_відправлення.Перелік_зупинок">Перелік_зупинок</option>
+   </select>
+   <button type="submit" formaction="?" formmethod="post">Сортувати</button>
+  </form>
     <br><br>
     <?php 
         $servername = 'localhost';
@@ -31,7 +44,7 @@
 
         //  Створюємо з'єднання
         $connection = new mysqli($servername, $username, $password, $database);
-
+        $sortBy = (isset($_POST['sortBy']) ? $_POST['sortBy'] : NULL);
         // Перевіряємо з'єднання
         if ($connection->connect_error) {
             die("Не вдалося з'єднатися із сервером" . $connection -> connect_error);
@@ -39,8 +52,10 @@
         $sql = "SELECT DISTINCT Дні_відправлення.id, Потяги.Номер_потягу, Маршрути.Номер_маршруту, Дні_відправлення.День_відправлення,
         Дні_відправлення.Час_відправлення,Дні_відправлення.Час_прибуття,Дні_відправлення.Тривалість_маршруту,Дні_відправлення.Перелік_зупинок FROM Дні_відправлення
         JOIN Маршрути ON Дні_відправлення.Номер_маршруту = Маршрути.Номер_маршруту
-        JOIN Потяги ON Дні_відправлення.Номер_потягу = Потяги.Номер_потягу
-        ORDER BY Дні_відправлення.id";
+        JOIN Потяги ON Дні_відправлення.Номер_потягу = Потяги.Номер_потягу";
+        if($sortBy != NULL) {
+            $sql .= ' ORDER BY ' . $sortBy;
+           }
         $result = $connection->query($sql);
      if (!$result) {
         die("Не вдалося отримати дані з таблиці Дні відправлення" . $connection->error);
